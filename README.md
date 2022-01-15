@@ -9,6 +9,8 @@
 |[goenv](https://github.com/syndbg/goenv)|goのバージョン管理|
 |[sql-migrate](https://github.com/rubenv/sql-migrate)|マイグレーションで利用|
 |[direnv](https://github.com/direnv/direnv)|.envrc利用のため|
+|[golangci-lint](https://github.com/golangci/golangci-lint)|linter|
+|[pre-commit](https://pre-commit.com)|commit時の事前チェック|
 
 ```sh
 # `.go-version`に従いインストール
