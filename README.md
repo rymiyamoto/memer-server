@@ -22,6 +22,9 @@ $ cp .envrc.dev .envrc
 $ vim .envrc
 $ direnv allow .
 
+# pre-commit の追加
+$ pre-commit install
+
 # dockerでMySQL起動
 $ docker-compose up -d rdb
 
