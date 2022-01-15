@@ -1,4 +1,4 @@
-# memer
+# memer-server
 
 ## Getting Started
 

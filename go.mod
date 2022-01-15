@@ -1,4 +1,4 @@
-module rymiyamoto/memer
+module rymiyamoto/memer-server
 
 go 1.17
 
