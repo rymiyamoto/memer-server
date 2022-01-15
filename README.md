@@ -11,6 +11,7 @@
 |[direnv](https://github.com/direnv/direnv)|.envrc利用のため|
 |[golangci-lint](https://github.com/golangci/golangci-lint)|linter|
 |[pre-commit](https://pre-commit.com)|commit時の事前チェック|
+|[air](https://github.com/cosmtrek/air)|hot reload|
 
 ```sh
 # .go-version に従いインストール
@@ -28,5 +29,5 @@ $ docker-compose up -d rdb
 $ sql-migrate up -config asset/db/dbconf.yml
 
 # アプリ起動
-$ go run main.go
+$ air
 ```
