@@ -13,10 +13,10 @@
 |[pre-commit](https://pre-commit.com)|commit時の事前チェック|
 
 ```sh
-# `.go-version`に従いインストール
+# .go-version に従いインストール
 $ goenv install
 
-# 環境変数に追加(`.envrc`作成、空にしているKEYなどは誰かに聞いてください)
+# 環境変数に追加
 $ cp .envrc.dev .envrc
 $ vim .envrc
 $ direnv allow .
