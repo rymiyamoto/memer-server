@@ -5,11 +5,20 @@ run:
     - ".*\\.my\\.go$"
     - lib/bad.go
 
+linters-settings:
+  varnamelen:
+    max-distance: 5
+    min-name-length: 1
+
 linters:
   enable-all: true
   disable:
     - maligned
     - prealloc
+    - scopelint
+    - interfacer
+    - golint
+    - wrapcheck
 
 issues:
   exclude-rules:
@@ -20,3 +29,4 @@ issues:
         - gosec
         - staticcheck
         - unparam
+        - wrapcheck
