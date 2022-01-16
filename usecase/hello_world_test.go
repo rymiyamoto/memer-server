@@ -25,7 +25,7 @@ func TestHelloWorld_Get(t *testing.T) {
 	defer mockCtrl.Finish()
 
 	helloWorldService := service.NewMockIHelloWorld(mockCtrl)
-	s := &HelloWorld{
+	u := &HelloWorld{
 		helloWorldService: helloWorldService,
 	}
 	m := &model.HelloWorld{
@@ -36,6 +36,6 @@ func TestHelloWorld_Get(t *testing.T) {
 		Get().
 		Return(m)
 
-	got := s.Get()
+	got := u.Get()
 	assert.Equal(t, got, m)
 }
