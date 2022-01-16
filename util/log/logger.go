@@ -11,7 +11,6 @@ type (
 	// LoggerConfig struct
 	LoggerConfig struct {
 		UseDebug bool
-		IsDev    bool
 		Encoding string
 		Output   string
 	}
@@ -26,7 +25,7 @@ func NewLogger(config LoggerConfig) (*zap.Logger, error) {
 
 	logger, err := zap.Config{
 		Level:       zap.NewAtomicLevelAt(level),
-		Development: config.IsDev,
+		Development: config.UseDebug,
 		Encoding:    config.Encoding,
 		EncoderConfig: zapcore.EncoderConfig{
 			TimeKey:        "timestamp",
