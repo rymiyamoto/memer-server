@@ -15,9 +15,12 @@ func ZapLogger(log *zap.Logger) echo.MiddlewareFunc {
 		return func(c echo.Context) error {
 			start := time.Now()
 
+			errStr := ""
+
 			err := next(c)
 			if err != nil {
 				c.Error(err)
+				errStr = err.Error()
 			}
 
 			req := c.Request()
@@ -36,6 +39,7 @@ func ZapLogger(log *zap.Logger) echo.MiddlewareFunc {
 				zap.String("uri", req.RequestURI),
 				zap.String("host", req.Host),
 				zap.String("remote_ip", c.RealIP()),
+				zap.String("error", errStr),
 			}
 
 			n := res.Status
