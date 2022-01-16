@@ -72,4 +72,7 @@ $ swag init
 ```
 
 ### URL
-[local](http://localhost:1324/swagger/index.html)
+
+|env|url|
+|-|-|
+|local|http://localhost:1324/swagger/index.html|
