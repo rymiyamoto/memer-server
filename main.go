@@ -1,7 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"os"
+	"os/signal"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	echoMiddleware "github.com/labstack/echo/v4/middleware"
@@ -9,6 +13,13 @@ import (
 	"github.com/rymiyamoto/memer-server/middleware"
 	"github.com/rymiyamoto/memer-server/router"
 	"github.com/rymiyamoto/memer-server/util/log"
+)
+
+const (
+	// Timeout timeout
+	Timeout = 10 * time.Second
+	// Buffer buffer
+	Buffer = 100
 )
 
 func main() {
@@ -38,5 +49,21 @@ func main() {
 	router.Init(e)
 
 	// Start server
-	e.Logger.Fatal(e.Start(":1324"))
+	go func() {
+		if err := e.Start(":1324"); err != nil {
+			e.Logger.Info("shutting down the server ")
+		}
+	}()
+
+	quit := make(chan os.Signal, Buffer)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
+
+	ctx, cancel := context.WithTimeout(context.Background(), Timeout)
+
+	defer cancel()
+
+	if err := e.Shutdown(ctx); err != nil {
+		e.Logger.Fatal(err)
+	}
 }
