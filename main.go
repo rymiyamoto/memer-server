@@ -6,39 +6,19 @@ import (
 
 	"github.com/labstack/echo/v4"
 	echoMiddleware "github.com/labstack/echo/v4/middleware"
+	"github.com/rymiyamoto/memer-server/conf"
 	"github.com/rymiyamoto/memer-server/middleware"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
+	"github.com/rymiyamoto/memer-server/util/log"
 )
 
 func main() {
-	logger, err := zap.Config{
-		Level:       zap.NewAtomicLevelAt(zap.DebugLevel),
-		Development: true,
-		Encoding:    "json",
-		EncoderConfig: zapcore.EncoderConfig{
-			TimeKey:        "timestamp",
-			LevelKey:       "level",
-			NameKey:        "logger",
-			CallerKey:      "caller",
-			FunctionKey:    zapcore.OmitKey,
-			StacktraceKey:  "stacktrace",
-			LineEnding:     zapcore.DefaultLineEnding,
-			EncodeLevel:    zapcore.CapitalLevelEncoder,
-			EncodeTime:     zapcore.RFC3339NanoTimeEncoder,
-			EncodeDuration: zapcore.SecondsDurationEncoder,
-			EncodeCaller:   zapcore.ShortCallerEncoder,
-		},
-		OutputPaths:      []string{"stdout"},
-		ErrorOutputPaths: []string{"stdout"},
-	}.Build(
-		zap.AddCaller(),
-		zap.Fields(
-			zap.String("permanent", "value"),
-		),
-	)
+	logger, err := log.NewLogger(log.LoggerConfig{
+		UseDebug: !conf.IsProd(),
+		Encoding: "json",
+		Output:   "stdout",
+	})
 	if err != nil {
-		panic(fmt.Errorf("failed to zap.Build. err: %w", err))
+		panic(fmt.Errorf("failed to log.NewLogger. err: %w", err))
 	}
 
 	defer func() {
