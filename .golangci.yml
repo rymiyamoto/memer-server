@@ -9,6 +9,10 @@ linters-settings:
   varnamelen:
     max-distance: 5
     min-name-length: 1
+  tagliatelle:
+    case:
+      rules:
+        json: snake
 
 linters:
   enable-all: true
