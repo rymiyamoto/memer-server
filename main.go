@@ -5,14 +5,17 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"time"
 
 	"github.com/labstack/echo/v4"
 	echoMiddleware "github.com/labstack/echo/v4/middleware"
 	"github.com/rymiyamoto/memer-server/conf"
+	"github.com/rymiyamoto/memer-server/docs"
 	"github.com/rymiyamoto/memer-server/middleware"
 	"github.com/rymiyamoto/memer-server/router"
 	"github.com/rymiyamoto/memer-server/util/log"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 const (
@@ -23,12 +26,13 @@ const (
 )
 
 func main() {
+	isProd := conf.IsProd()
 	logger, err := log.NewLogger(log.LoggerConfig{
-		UseDebug: !conf.IsProd(),
+		UseDebug: !isProd,
 		Encoding: "json",
 		Output:   "stdout",
 	})
-	if err != nil {
+	if err != nil { // nolint:wsl
 		panic(fmt.Errorf("failed to log.NewLogger. err: %w", err))
 	}
 
@@ -42,10 +46,21 @@ func main() {
 	e := echo.New()
 
 	// Middleware
+	e.Use(echoMiddleware.GzipWithConfig(echoMiddleware.GzipConfig{
+		Skipper: func(c echo.Context) bool {
+			return strings.Contains(c.Request().URL.Path, "swagger")
+		},
+	}))
 	e.Use(middleware.ZapLogger(logger))
 	e.Use(echoMiddleware.Recover())
 
 	// Routing
+	if !isProd {
+		docs.SwaggerInfo.Host = "localhost:1324"
+
+		e.GET("/swagger/*", echoSwagger.EchoWrapHandler(echoSwagger.URL("/swagger/doc.json")))
+	}
+
 	router.Init(e)
 
 	// Start server
