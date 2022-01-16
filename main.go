@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 	echoMiddleware "github.com/labstack/echo/v4/middleware"
 	"github.com/rymiyamoto/memer-server/conf"
 	"github.com/rymiyamoto/memer-server/middleware"
+	"github.com/rymiyamoto/memer-server/router"
 	"github.com/rymiyamoto/memer-server/util/log"
 )
 
@@ -34,14 +34,9 @@ func main() {
 	e.Use(middleware.ZapLogger(logger))
 	e.Use(echoMiddleware.Recover())
 
-	// Routes
-	e.GET("/", hello)
+	// Routing
+	router.Init(e)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1324"))
-}
-
-// hello Handler
-func hello(c echo.Context) error {
-	return c.JSON(http.StatusOK, "Hello, World!")
 }
