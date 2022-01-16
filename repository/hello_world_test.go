@@ -1,23 +1,24 @@
-package repository_test
+package repository
 
 import (
 	"testing"
 
-	"github.com/rymiyamoto/memer-server/repository"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestHelloWorld_NewHelloWorld(t *testing.T) {
 	t.Parallel()
 
-	got := repository.NewHelloWorld()
-	assert.IsType(t, got, &repository.HelloWorld{})
+	got := NewHelloWorld()
+	assert.Equal(t, got, &HelloWorld{
+		text: "hello world",
+	})
 }
 
 func TestHelloWorld_Get(t *testing.T) {
 	t.Parallel()
 
-	r := repository.NewHelloWorld()
+	r := NewHelloWorld()
 	got := r.Get()
 	assert.Equal(t, got, "hello world")
 }
