@@ -22,7 +22,7 @@ func main() {
 	e.Logger.Fatal(e.Start(":1324"))
 }
 
-// hello Handler.
+// hello Handler
 func hello(c echo.Context) error {
 	return c.JSON(http.StatusOK, "Hello, World!")
 }

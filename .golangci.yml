@@ -19,6 +19,7 @@ linters:
     - interfacer
     - golint
     - wrapcheck
+    - godot
 
 issues:
   exclude-rules:
@@ -28,5 +29,4 @@ issues:
         - dupl
         - gosec
         - staticcheck
-        - unparam
         - wrapcheck
