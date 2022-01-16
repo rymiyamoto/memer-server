@@ -31,5 +31,5 @@ func InitV1(e *echo.Echo) {
 }
 
 func (r V1) withoutToken(g *echo.Group) {
-	g.GET("/", r.helloWorldHandler.Index)
+	g.GET("/hello_world", r.helloWorldHandler.Index)
 }

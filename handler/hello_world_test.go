@@ -37,7 +37,7 @@ func TestHelloWorld_Get(t *testing.T) {
 	}
 
 	doTest := func() (*httptest.ResponseRecorder, error) {
-		c, rec := createContext(echo.GET, "/")
+		c, rec := createContext(echo.GET, "/hello_world")
 		err := h.Index(c)
 
 		return rec, err

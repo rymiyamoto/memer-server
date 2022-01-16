@@ -32,7 +32,13 @@ func NewHelloWorld() IHelloWorld {
 	}
 }
 
-// Index index
+// Index godoc
+// @Summary HelloWoeld 一覧
+// @ID HelloWoeldIndex
+// @Tags HelloWoeld
+// @Produce json
+// @Success 200 {object} JSONHelloWorldIndex
+// @Router /1.0/hello_world [get]
 func (h *HelloWorld) Index(c echo.Context) error {
 	m := h.helloWorldUsecase.Get()
 
