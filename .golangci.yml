@@ -20,6 +20,7 @@ linters:
     - golint
     - wrapcheck
     - godot
+    - exhaustivestruct
 
 issues:
   exclude-rules:
