@@ -21,6 +21,7 @@ linters:
     - wrapcheck
     - godot
     - exhaustivestruct
+    - ireturn
 
 issues:
   exclude-rules:

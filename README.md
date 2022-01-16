@@ -12,6 +12,7 @@
 |[golangci-lint](https://github.com/golangci/golangci-lint)|linter|
 |[pre-commit](https://pre-commit.com)|commit時の事前チェック|
 |[air](https://github.com/cosmtrek/air)|hot reload|
+|[mockgen](https://github.com/golang/mock)|mock作成|
 
 ```sh
 # .go-version に従いインストール
@@ -33,4 +34,26 @@ $ sql-migrate up -config asset/db/dbconf.yml
 
 # アプリ起動
 $ air
+```
+
+## Testing
+
+### exec
+
+```sh
+# 対象のディレクトリに移動
+$ cd target_dir
+
+# ディレクトリ内すべて
+$ go test -run ""
+
+# 特定のテストのみ
+$ go test -run "TestHoge"
+```
+
+### mock
+
+```sh
+# mock作成
+$ mockgen -source=hoge.go -destination=hoge_mock.go -package=pkg
 ```
