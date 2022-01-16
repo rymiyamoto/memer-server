@@ -13,6 +13,8 @@
 |[pre-commit](https://pre-commit.com)|commit時の事前チェック|
 |[air](https://github.com/cosmtrek/air)|hot reload|
 |[mockgen](https://github.com/golang/mock)|mock作成|
+|[swag](https://github.com/swaggo/swag)|swaggerの生成|
+|[echo-swagger](https://github.com/swaggo/echo-swagger)|swaggerのecho周りの補完|
 
 ```sh
 # .go-version に従いインストール
@@ -57,3 +59,17 @@ $ go test -run "TestHoge"
 # mock作成
 $ mockgen -source=hoge.go -destination=hoge_mock.go -package=pkg
 ```
+
+## Swagger
+
+### generate
+
+[format](https://github.com/swaggo/swag#general-api-info)
+
+```sh
+# ドキュメント生成
+$ swag init
+```
+
+### URL
+[local](http://localhost:1324/swagger/index.html)
