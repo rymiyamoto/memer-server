@@ -22,6 +22,7 @@ linters:
     - godot
     - exhaustivestruct
     - ireturn
+    - testpackage
 
 issues:
   exclude-rules:
