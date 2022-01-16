@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	gomock "github.com/golang/mock/gomock"
+	"github.com/rymiyamoto/memer-server/model"
 	"github.com/rymiyamoto/memer-server/repository"
 	"github.com/stretchr/testify/assert"
 )
@@ -27,11 +28,14 @@ func TestHelloWorld_Get(t *testing.T) {
 	s := &HelloWorld{
 		helloWorldRepository: helloWorldRepository,
 	}
+	m := &model.HelloWorld{
+		Text: "test",
+	}
 
 	helloWorldRepository.EXPECT().
 		Get().
-		Return("test")
+		Return(m)
 
 	got := s.Get()
-	assert.Equal(t, got, "test")
+	assert.Equal(t, got, m)
 }

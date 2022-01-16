@@ -8,6 +8,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
+	model "github.com/rymiyamoto/memer-server/model"
 )
 
 // MockIHelloWorld is a mock of IHelloWorld interface.
@@ -34,10 +35,10 @@ func (m *MockIHelloWorld) EXPECT() *MockIHelloWorldMockRecorder {
 }
 
 // Get mocks base method.
-func (m *MockIHelloWorld) Get() string {
+func (m *MockIHelloWorld) Get() *model.HelloWorld {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Get")
-	ret0, _ := ret[0].(string)
+	ret0, _ := ret[0].(*model.HelloWorld)
 	return ret0
 }
 

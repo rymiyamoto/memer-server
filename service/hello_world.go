@@ -1,11 +1,14 @@
 package service
 
-import "github.com/rymiyamoto/memer-server/repository"
+import (
+	"github.com/rymiyamoto/memer-server/model"
+	"github.com/rymiyamoto/memer-server/repository"
+)
 
 type (
 	// IHelloWorld interface
 	IHelloWorld interface {
-		Get() string
+		Get() *model.HelloWorld
 	}
 
 	// HelloWorld struct
@@ -22,6 +25,6 @@ func NewHelloWorld() IHelloWorld {
 }
 
 // Get get
-func (s *HelloWorld) Get() string {
+func (s *HelloWorld) Get() *model.HelloWorld {
 	return s.helloWorldRepository.Get()
 }

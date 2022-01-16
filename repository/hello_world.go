@@ -1,9 +1,11 @@
 package repository
 
+import "github.com/rymiyamoto/memer-server/model"
+
 type (
 	// IHelloWorld interface
 	IHelloWorld interface {
-		Get() string
+		Get() *model.HelloWorld
 	}
 
 	// HelloWorld struct
@@ -20,6 +22,8 @@ func NewHelloWorld() IHelloWorld {
 }
 
 // Get get
-func (r *HelloWorld) Get() string {
-	return r.text
+func (r *HelloWorld) Get() *model.HelloWorld {
+	return &model.HelloWorld{
+		Text: r.text,
+	}
 }

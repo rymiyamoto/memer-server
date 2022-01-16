@@ -3,6 +3,7 @@ package repository
 import (
 	"testing"
 
+	"github.com/rymiyamoto/memer-server/model"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -20,5 +21,7 @@ func TestHelloWorld_Get(t *testing.T) {
 
 	r := NewHelloWorld()
 	got := r.Get()
-	assert.Equal(t, got, "hello world")
+	assert.Equal(t, got, &model.HelloWorld{
+		Text: "hello world",
+	})
 }

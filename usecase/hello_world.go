@@ -1,13 +1,14 @@
 package usecase
 
 import (
+	"github.com/rymiyamoto/memer-server/model"
 	"github.com/rymiyamoto/memer-server/service"
 )
 
 type (
 	// IHelloWorld interface
 	IHelloWorld interface {
-		Get() string
+		Get() *model.HelloWorld
 	}
 
 	// HelloWorld struct
@@ -24,6 +25,6 @@ func NewHelloWorld() IHelloWorld {
 }
 
 // Get get
-func (u *HelloWorld) Get() string {
+func (u *HelloWorld) Get() *model.HelloWorld {
 	return u.helloWorldService.Get()
 }
