@@ -6,7 +6,7 @@ services:
       context: docker/test-runner
       dockerfile: Dockerfile
       args:
-        GO_VERSION: ${GO_VERSION:-1.17.6}
+        GO_VERSION: ${GO_VERSION:-1.18.1}
     depends_on:
       - rdb
     volumes:
@@ -24,7 +24,7 @@ services:
       context: .
       dockerfile: docker/migration/Dockerfile
       args:
-        GO_VERSION: ${GO_VERSION:-1.17.6}
+        GO_VERSION: ${GO_VERSION:-1.18.1}
     depends_on:
       - rdb
     volumes:

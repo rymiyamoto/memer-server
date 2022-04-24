@@ -1,6 +1,6 @@
 module github.com/rymiyamoto/memer-server
 
-go 1.17
+go 1.18
 
 require (
 	github.com/gocraft/dbr/v2 v2.7.3
