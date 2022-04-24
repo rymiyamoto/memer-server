@@ -13,4 +13,4 @@ ENV GOPATH="/go" \
 
 RUN set -uex \
   mkdir -p $GOPATH/src/github.com/rymiyamoto ; \
-  go get github.com/rubenv/sql-migrate/... ;
+  go get -v github.com/rubenv/sql-migrate/... ;
