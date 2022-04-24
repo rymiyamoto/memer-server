@@ -18,7 +18,6 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-test}
       DB_ADDRESS: ${DB_ADDRESS:-rdb}
       DB_SCHEMA: ${DB_DATABASE:-memer}
-      DB_PORT: ${DB_PORT:-3306}
     working_dir: /go/src/github.com/rymiyamoto/memer
 
   migration:
@@ -37,7 +36,6 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-test}
       DB_ADDRESS: ${DB_ADDRESS:-rdb}
       DB_SCHEMA: ${DB_SCHEMA:-memer}
-      DB_PORT: ${DB_PORT:-3306}
     working_dir: /go/src/github.com/rymiyamoto/memer
     command:
       - "sql-migrate"
