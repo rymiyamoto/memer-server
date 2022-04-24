@@ -18,7 +18,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-test}
       DB_ADDRESS: ${DB_ADDRESS:-rdb}
       DB_SCHEMA: ${DB_DATABASE:-memer}
-      DB_PORT: ${DB_PORT:-3307}
+      DB_PORT: ${DB_PORT:-3306}
     working_dir: /go/src/github.com/rymiyamoto/memer
 
   migration:
@@ -37,7 +37,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-test}
       DB_ADDRESS: ${DB_ADDRESS:-rdb}
       DB_SCHEMA: ${DB_SCHEMA:-memer}
-      DB_PORT: ${DB_PORT:-3307}
+      DB_PORT: ${DB_PORT:-3306}
     working_dir: /go/src/github.com/rymiyamoto/memer
     command:
       - "sql-migrate"
@@ -49,9 +49,9 @@ services:
     image: arm64v8/mysql:8.0-oracle
     restart: always
     expose:
-      - "3307"
+      - "3306"
     ports:
-      - "3307:3307"
+      - "3306:3306"
     environment:
       MYSQL_ROOT_USER: ${DB_USER:-root}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-test}
