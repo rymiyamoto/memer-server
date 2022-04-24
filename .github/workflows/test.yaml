@@ -1,0 +1,25 @@
+on: [push]
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: docker-compose build
+        run: |
+          GO_VERSION=$(cat .go-version)
+          echo Build with GO $GO_VERSION
+          docker-compose build
+      - name: docker-compose up
+        run: |
+          docker-compose up -d rdb
+          sleep 15s
+      - name: go test
+        run: |
+          docker-compose run migration
+          docker-compose run test
+      - name: upload coverage
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
