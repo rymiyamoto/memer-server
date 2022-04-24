@@ -2,6 +2,7 @@ version: "3.8"
 services:
 
   test:
+    platform: linux/x86_64
     build:
       context: docker/test-runner
       dockerfile: Dockerfile
@@ -20,6 +21,7 @@ services:
     working_dir: /go/src/github.com/rymiyamoto/memer
 
   migration:
+    platform: linux/x86_64
     build:
       context: .
       dockerfile: docker/migration/Dockerfile
@@ -47,9 +49,9 @@ services:
     image: mysql:8.0.28
     restart: always
     expose:
-      - "3306"
+      - "3307"
     ports:
-      - "3306:3306"
+      - "3307:3307"
     environment:
       MYSQL_ROOT_USER: ${DB_USER:-root}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-test}
