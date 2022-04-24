@@ -1,0 +1,65 @@
+version: "3.8"
+services:
+
+  test:
+    build:
+      context: docker/test-runner
+      dockerfile: Dockerfile
+      args:
+        GO_VERSION: ${GO_VERSION:-1.18.1}
+    depends_on:
+      - rdb
+    volumes:
+      - $PWD:/go/src/github.com/rymiyamoto/memer
+    environment:
+      GO_ENV: ${GO_ENV:-test}
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-test}
+      DB_ADDRESS: ${DB_ADDRESS:-rdb}
+      DB_SCHEMA: ${DB_DATABASE:-memer}
+    working_dir: /go/src/github.com/rymiyamoto/memer
+
+  migration:
+    build:
+      context: .
+      dockerfile: docker/migration/Dockerfile
+      args:
+        GO_VERSION: ${GO_VERSION:-1.18.1}
+    depends_on:
+      - rdb
+    volumes:
+      - $PWD:/go/src/github.com/rymiyamoto/memer
+    environment:
+      GO_ENV: ${GO_ENV:-test}
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-test}
+      DB_ADDRESS: ${DB_ADDRESS:-rdb}
+      DB_SCHEMA: ${DB_SCHEMA:-memer}
+    working_dir: /go/src/github.com/rymiyamoto/memer
+    command:
+      - "sql-migrate"
+      - "up"
+      - "-config=asset/db/dbconf.yml"
+      - "-env=${GO_ENV:-test}"
+
+  rdb:
+    platform: linux/x86_64
+    image: mysql:8.0.28
+    restart: always
+    expose:
+      - "3307"
+    ports:
+      - "3307:3307"
+    environment:
+      MYSQL_ROOT_USER: ${DB_USER:-root}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-test}
+      MYSQL_DATABASE: ${DB_SCHEMA:-memer}
+    command:
+      - --character-set-server=utf8mb4
+      - --character_set_client=utf8mb4
+      - --character_set_connection=utf8mb4
+      - --character_set_database=utf8mb4
+      - --character_set_results=utf8mb4
+      - --character_set_system=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+      - --default-storage-engine=innodb

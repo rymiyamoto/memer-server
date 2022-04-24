@@ -1,0 +1,5 @@
+export GO_ENV=dev
+export DB_USER=root
+export DB_PASSWORD=test
+export DB_ADDRESS=127.0.0.1
+export DB_SCHEMA=memer

@@ -1,0 +1,28 @@
+definitions:
+  handler.JSONHelloWorldIndex:
+    properties:
+      hello_world:
+        $ref: '#/definitions/response.HelloWorld'
+    type: object
+  response.HelloWorld:
+    properties:
+      text:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /1.0/hello_world:
+    get:
+      operationId: HelloWoeldIndex
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.JSONHelloWorldIndex'
+      summary: HelloWoeld 一覧
+      tags:
+      - HelloWoeld
+swagger: "2.0"

@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+set -eu
+
+readonly processid="test-`date +%s`"
+
+[[ ! -d ./tmp ]] && mkdir ./tmp
+
+readonly work_dir="./tmp/${processid}"
+mkdir -p "$work_dir"
+
+readonly coverprofile="${work_dir}/profile.txt"
+readonly tmp_testout="${work_dir}/testout.txt"
+readonly tmp_coverageout="${work_dir}/coverage.out"
+
+readonly testout="./tmp/test.out"
+readonly coverageout="./tmp/coverage.out"
+readonly coveragehtml="./tmp/coverage.html"
+
+# Show Banner
+echo ''
+echo ''
+echo '███╗   ███╗███████╗███╗   ███╗███████╗██████╗ '
+echo '████╗ ████║██╔════╝████╗ ████║██╔════╝██╔══██╗'
+echo '██╔████╔██║█████╗  ██╔████╔██║█████╗  ██████╔╝'
+echo '██║╚██╔╝██║██╔══╝  ██║╚██╔╝██║██╔══╝  ██╔══██╗'
+echo '██║ ╚═╝ ██║███████╗██║ ╚═╝ ██║███████╗██║  ██║'
+echo '╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝'
+echo '                                              '
+echo '████████╗███████╗███████╗████████╗            '
+echo '╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝            '
+echo '   ██║   █████╗  ███████╗   ██║               '
+echo '   ██║   ██╔══╝  ╚════██║   ██║               '
+echo '   ██║   ███████╗███████║   ██║               '
+echo '   ╚═╝   ╚══════╝╚══════╝   ╚═╝'
+echo -e '============================================================================\e[32;m TEST RUNNER \e[39;m======'
+echo ''
+echo -e '\e[7;m ENVIRONMENTS \e[27;m'
+echo ''
+echo -e "GO VERSION\t: $(go version)"
+echo -e "WORKING DIR\t: ${work_dir}"
+echo -e "TEST RESULT\t: ${testout}"
+echo -e "TEST COVERAGE\t: ${coverageout}"
+echo ''
+
+# Cleanup
+if [[ -f "$testout" ]]; then
+  echo -e '\e[7;m CLEANUP \e[27;m\n'
+  [[ -f "$testout" ]] && echo -e "REMOVE\t$testout" && rm "$testout"
+  [[ -f "$coverageout" ]] && echo -e "REMOVE\t$coverageout" && rm "$coverageout"
+  echo ''
+fi
+
+# Exec Tests
+echo -e '\e[7;m TESTING \e[27;m\n'
+readonly packages=$(go list ./... 2>>/dev/null)
+echo -e "$(echo $packages | wc -w) PACKAGES FOUND\n"
+
+set +e
+for pkg in "$packages"; do
+  go test -coverprofile="$coverprofile" $pkg -parallel 1 | tee -a "$tmp_testout"
+  cat $coverprofile | tail -n +2 >> "$tmp_coverageout"
+done
+set -e
+echo ''
+
+cp "$tmp_testout" "$testout"
+echo "mode: set" >> "$coverageout"
+cat "$tmp_coverageout" | grep -v "_mock.go" >> "$coverageout"
+rm "$tmp_coverageout"
+go tool cover -html="$coverageout"  -o "$coveragehtml"
+
+if [ $(grep FAIL "$testout" | wc -l) -gt 0 ]; then
+  echo -e 'TEST FINISHED WITH \e[31mFAILED\e[39m\n'
+  exit 1
+fi
+
+echo -e 'TEST FINISHED WITH \e[32mSUCCESS\e[39m\n'
+exit 0

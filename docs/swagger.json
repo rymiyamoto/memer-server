@@ -1,0 +1,46 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/1.0/hello_world": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HelloWoeld"
+                ],
+                "summary": "HelloWoeld 一覧",
+                "operationId": "HelloWoeldIndex",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handler.JSONHelloWorldIndex"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handler.JSONHelloWorldIndex": {
+            "type": "object",
+            "properties": {
+                "hello_world": {
+                    "$ref": "#/definitions/response.HelloWorld"
+                }
+            }
+        },
+        "response.HelloWorld": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
