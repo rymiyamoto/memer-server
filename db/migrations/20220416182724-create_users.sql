@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザー';
 
 -- +migrate Down
-DROP TABLE IF EXISTS `users`
+DROP TABLE IF EXISTS `users`;
