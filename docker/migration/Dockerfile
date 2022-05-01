@@ -9,11 +9,7 @@ RUN apk --no-cache add \
   tzdata;
 
 ENV GOPATH="/go" \
-  GO_ENV=test \
-  DB_USER=root \
-  DB_PASSWORD=test \
-  DB_ADDRESS=rdb \
-  DB_SCHEMA=memer
+  GO_ENV=test
 
 RUN set -uex \
   mkdir -p $GOPATH/src/github.com/rymiyamoto ; \
