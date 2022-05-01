@@ -6,7 +6,7 @@ development:
 test:
   dialect: mysql
   dir: db/migrations
-  datasource: ${DB_USER}:${DB_PASSWORD}@tcp(${DB_ADDRESS})/memer?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=true
+  datasource: ${DB_USER}:${DB_PASSWORD}@tcp(${DB_ADDRESS})/${DB_SCHEMA}?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=true
 
 production:
   dialect: mysql
